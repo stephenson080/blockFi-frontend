@@ -10,6 +10,7 @@ import styles from "../styles/Buttons.module.css";
 
 import { UserContext } from "../contexts/user_context";
 import { useConnectionStatus } from "@thirdweb-dev/react";
+import CheckOutCredentil from "../components/Forms/CheckoutCredential";
 
 export default function Home() {
   const { user } = useContext(UserContext);
@@ -61,6 +62,7 @@ export default function Home() {
                 </button>
               </div>
             </div>
+            <CheckOutCredentil />
           </div>
           <Bottom />
         </div>

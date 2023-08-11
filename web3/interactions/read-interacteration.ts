@@ -3,6 +3,8 @@ import ABI from "../ABI.json";
 import { MUMBAI_RPC, _ADDRESS } from "../../utils/constants";
 import Credential from "../../models/credentials";
 import { Cred } from "../../utils/types";
+import Institution from "../../models/institution";
+import Candidate from "../../models/candidate";
 
 function createBlocFiReadInstance() {
   const instance = new ethers.Contract(
@@ -55,7 +57,6 @@ export async function getCandidatesCredentials(
       const credentialNo = await instance.retrieveCredentialNo(i, cred.cid);
       const credential = new Credential(
         i,
-        cred._hash,
         cred.cid,
         cred.issuer,
         cred.owner,
@@ -85,7 +86,6 @@ export async function getInstitutionCredentials(address: string) {
       const credentialNo = await instance.retrieveCredentialNo(i, cred.cid);
       const credential = new Credential(
         i,
-        cred._hash,
         cred.cid,
         cred.issuer,
         cred.owner,
@@ -100,6 +100,42 @@ export async function getInstitutionCredentials(address: string) {
     }
   }
   return credentialWithInstitution;
+}
+
+export async function checkoutCredential(credentialNo: string) {
+  const instance = createBlocFiReadInstance();
+  const cred = await instance.viewCredential(credentialNo);
+  if (!cred[0].created) {
+    throw new Error("Not fouund");
+  }
+  const inst = await instance.institutions(formBigNumber(cred[0].issuer));
+  const owner = await instance.candidates(formBigNumber(cred[0].owner));
+  const credential: Cred = {
+    credential: new Credential(
+      1,
+      cred[0].cid,
+      cred[0].issuer,
+      cred[0].owner,
+      cred[0].verified,
+      cred[0].created,
+      cred[0].issue_date,
+      cred[0].credentialType,
+      credentialNo
+    ),
+    inst: new Institution(inst.name, inst.website, inst.created, inst.verified),
+  };
+  return {
+    status: true,
+    credential,
+    owner: new Candidate(
+      owner.name,
+      owner.profile_uri,
+      owner.created,
+      owner.is_verified,
+      owner.no_of_credentials
+    ),
+    hash: cred[1],
+  };
 }
 
 export function formBigNumber(value: ethers.BigNumber) {

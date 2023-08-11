@@ -65,13 +65,13 @@ export async function addCredential(
 }
 
 export async function verifyCredential(
-  credentialId: number,
+  credentialNo: string,
   signer: ethers.Signer
 ) {
   try {
     const instance = createBlocFiWriteInstance(signer);
     const trx: ethers.ContractTransaction = await instance.verifyCredential(
-      credentialId
+      credentialNo
     );
     return trx;
   } catch (error) {

@@ -213,8 +213,8 @@ export default function AddCredentail(props: Props) {
     <Modal
       visible={props.visible}
       onClose={props.onClose}
-      title="Sign Up"
-      desc="Seems you are new here. Please complete your sign up"
+      title="Add Credential"
+      desc="Upload your credential and fill the form below"
       closeTitle="Cancel"
       onsumbit={submit}
       submitTitle="Complete"

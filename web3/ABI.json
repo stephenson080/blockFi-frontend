@@ -216,19 +216,14 @@
     "name": "candidates_credential",
     "outputs": [
       {
-        "internalType": "uint256",
-        "name": "issue_date",
-        "type": "uint256"
-      },
-      {
         "internalType": "string",
         "name": "cid",
         "type": "string"
       },
       {
-        "internalType": "bytes",
-        "name": "_hash",
-        "type": "bytes"
+        "internalType": "uint256",
+        "name": "issue_date",
+        "type": "uint256"
       },
       {
         "internalType": "enum BlocFi.CredentialType",
@@ -262,6 +257,25 @@
   {
     "inputs": [],
     "name": "credentialId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "name": "credentialNo_id",
     "outputs": [
       {
         "internalType": "uint256",
@@ -363,19 +377,14 @@
       {
         "components": [
           {
-            "internalType": "uint256",
-            "name": "issue_date",
-            "type": "uint256"
-          },
-          {
             "internalType": "string",
             "name": "cid",
             "type": "string"
           },
           {
-            "internalType": "bytes",
-            "name": "_hash",
-            "type": "bytes"
+            "internalType": "uint256",
+            "name": "issue_date",
+            "type": "uint256"
           },
           {
             "internalType": "enum BlocFi.CredentialType",
@@ -510,19 +519,14 @@
     "name": "institution_credential",
     "outputs": [
       {
-        "internalType": "uint256",
-        "name": "issue_date",
-        "type": "uint256"
-      },
-      {
         "internalType": "string",
         "name": "cid",
         "type": "string"
       },
       {
-        "internalType": "bytes",
-        "name": "_hash",
-        "type": "bytes"
+        "internalType": "uint256",
+        "name": "issue_date",
+        "type": "uint256"
       },
       {
         "internalType": "enum BlocFi.CredentialType",
@@ -733,14 +737,75 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "credential_id",
-        "type": "uint256"
+        "internalType": "string",
+        "name": "credentialNo",
+        "type": "string"
       }
     ],
     "name": "verifyCredential",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "credentialNo",
+        "type": "string"
+      }
+    ],
+    "name": "viewCredential",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "cid",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "issue_date",
+            "type": "uint256"
+          },
+          {
+            "internalType": "enum BlocFi.CredentialType",
+            "name": "credentialType",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint256",
+            "name": "issuer",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "owner",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "verified",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "created",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct BlocFi.Credential",
+        "name": "",
+        "type": "tuple"
+      },
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   }
 ]

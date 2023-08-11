@@ -56,12 +56,12 @@ export default function CredentialsPages() {
     }
   }
 
-  async function _verifyCredential(_id: number) {
+  async function _verifyCredential(credentialNo: string) {
     const id = toast.loading("Verifying Credential");
     try {
       if (!signer) return;
 
-      const trx = await verifyCredential(_id, signer);
+      const trx = await verifyCredential(credentialNo, signer);
       await trx.wait(1);
       toast.dismiss(id);
       toast.success("Credential Verified");
@@ -147,7 +147,7 @@ export default function CredentialsPages() {
                     </div>
                     <button
                       onClick={() => {
-                        _verifyCredential(cred.credential._id);
+                        _verifyCredential(cred.credential.credentialNo);
                       }}
                       className={`bg-transparent px-3.5 py-2.5 text-sm font-semibold text-purple-600`}
                     >
