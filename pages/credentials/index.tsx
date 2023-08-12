@@ -135,7 +135,9 @@ export default function CredentialsPages() {
                               : "text-red-500"
                           }`}
                         >
-                          {cred.credential.verified ? "Verified" : "Unverified"}
+                          {cred.credential.verified
+                            ? "Approved"
+                            : "Not Approved"}
                         </p>
                       </div>
                       <p className="text-sm font-medium text-gray-900">

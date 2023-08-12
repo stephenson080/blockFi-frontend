@@ -131,8 +131,8 @@ export default function CredentialsPages() {
                             }`}
                           >
                             {cred.credential.verified
-                              ? "Verified"
-                              : "Unverified"}
+                              ? "Approved"
+                              : "Not Approved"}
                           </p>
                         </div>
                         <p className="text-sm font-medium text-gray-900">
@@ -151,7 +151,7 @@ export default function CredentialsPages() {
                       }}
                       className={`bg-transparent px-3.5 py-2.5 text-sm font-semibold text-purple-600`}
                     >
-                      Verify
+                      Approve
                     </button>
                   </div>
                 );
