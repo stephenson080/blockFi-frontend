@@ -1,8 +1,6 @@
-import { PaperClipIcon } from "@heroicons/react/20/solid";
 import { UserContext } from "../contexts/user_context";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 
-import Institution from "../models/institution";
 import Navbar from "../components/Navbar";
 import Top from "../components/Background/Top";
 import Bottom from "../components/Background/Bottom";

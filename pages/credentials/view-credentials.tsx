@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { ArrowPathIcon } from "@heroicons/react/24/outline";
 
 import Bottom from "../../components/Background/Bottom";
 import Top from "../../components/Background/Top";
@@ -12,7 +13,6 @@ import {
   useSigner,
 } from "@thirdweb-dev/react";
 
-import styles from "../../styles/Buttons.module.css";
 import AddCredentail from "../../components/Forms/AddCredentialForm";
 import { toast } from "react-toastify";
 import {
@@ -39,7 +39,7 @@ export default function CredentialsPages() {
 
   useEffect(() => {
     checkUser();
-  }, [user]);
+  }, [user, address]);
   function checkUser() {
     if (user && user.created) {
     } else {
@@ -47,12 +47,21 @@ export default function CredentialsPages() {
   }
 
   async function _getInstitionCredential() {
+    const id = toast.loading("Getting Uploaded Credendtials");
     try {
-      if (!address || (user && !user.created)) return;
+      if (!address || (user && !user.created)) {
+        toast.dismiss(id);
+        return;
+      }
+
       const cred = await getInstitutionCredentials(address);
+      toast.dismiss(id);
+      toast.success("Done");
       setCandateCredentials([...cred]);
     } catch (error) {
       console.log(error);
+      toast.dismiss(id);
+      toast.error("Operation Failed");
     }
   }
 
@@ -88,6 +97,13 @@ export default function CredentialsPages() {
               <h2 className="text-2xl font-bold tracking-tight text-gray-900">
                 Uploaded Credentials
               </h2>
+              <div>
+                <ArrowPathIcon
+                  onClick={_getInstitionCredential}
+                  color="gray"
+                  className="h-6 w-6"
+                />
+              </div>
             </div>
 
             <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">

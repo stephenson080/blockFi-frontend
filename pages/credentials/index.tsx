@@ -17,6 +17,7 @@ import {
 } from "../../web3/interactions/read-interacteration";
 import { Cred } from "../../utils/types";
 import { dateFormater, truncate } from "../../utils/helpers";
+import { ArrowPathIcon } from "@heroicons/react/24/outline";
 
 const products = [
   {
@@ -45,7 +46,7 @@ export default function CredentialsPages() {
 
   useEffect(() => {
     checkUser();
-  }, [user]);
+  }, [user, address]);
   function checkUser() {
     if (user && user.created) {
     } else {
@@ -53,14 +54,22 @@ export default function CredentialsPages() {
   }
 
   async function _getUserCredential() {
+    const id = toast.loading("Getting Credential");
     try {
-      if (!address || !user) return;
+      if (!address || !user) {
+        toast.dismiss(id);
+        return;
+      }
       const cred = await getCandidatesCredentials(
         address,
         user.no_of_credentials
       );
+      toast.dismiss(id);
+      toast.success("Done");
       setCandateCredentials([...cred]);
     } catch (error) {
+      toast.dismiss(id);
+      toast.error("failed");
       console.log(error);
     }
   }
@@ -82,18 +91,25 @@ export default function CredentialsPages() {
               <h2 className="text-2xl font-bold tracking-tight text-gray-900">
                 Uploaded Credentials
               </h2>
-              <button
-                onClick={() => {
-                  if (user && !user.verified) {
-                    toast.error("Can't Add Credential. Account not Verified");
-                    return;
-                  }
-                  setVisible(true);
-                }}
-                className={`${styles.primary} rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
-              >
-                Add Credential
-              </button>
+              <div className="flex items-center ">
+                <ArrowPathIcon
+                  onClick={_getUserCredential}
+                  color="gray"
+                  className="h-6 w-6 mr-2"
+                />
+                <button
+                  onClick={() => {
+                    if (user && !user.verified) {
+                      toast.error("Can't Add Credential. Account not Verified");
+                      return;
+                    }
+                    setVisible(true);
+                  }}
+                  className={`${styles.primary} rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
+                >
+                  Add Credential
+                </button>
+              </div>
             </div>
 
             <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">

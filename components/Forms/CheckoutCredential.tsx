@@ -42,7 +42,7 @@ export default function CheckOutCredentil() {
       <h2 className="text-xl font-bold tracking-tight text-gray-900">
         Check out Credentials
       </h2>
-      <div className=" w-full flex flex-row items-center justify-between">
+      <div className=" w-full flex flex-row items-end justify-between">
         <div className="w-9/12">
           <Input
             label="Credential No"
@@ -53,15 +53,17 @@ export default function CheckOutCredentil() {
             required
           />
         </div>
-        <button
-          disabled={!credentialNo}
-          onClick={() => {
-            _check();
-          }}
-          className={`${styles.primary} rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
-        >
-          Check
-        </button>
+        <div className="pb-2">
+          <button
+            disabled={!credentialNo}
+            onClick={() => {
+              _check();
+            }}
+            className={`${styles.primary} rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
+          >
+            Check
+          </button>
+        </div>
       </div>
       {cred && (
         <div className="my-10 shadow-md bg-white-600 px-4">

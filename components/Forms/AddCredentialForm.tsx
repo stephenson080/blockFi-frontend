@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import Modal from "../Overlays/Modal";
 import Input from "./Input";
-import SelectUserTab from "../Tabs/SelectUserType";
 import {
-  addCandidate,
   addCredential,
   addInstitution,
 } from "../../web3/interactions/write-interactions";
