@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { useAddress, useConnectionStatus } from "@thirdweb-dev/react";
-import Candidate from "../models/candidate";
-import Institution from "../models/institution";
+
 import {
   getCandidate,
   getInstitution,

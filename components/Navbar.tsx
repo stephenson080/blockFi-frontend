@@ -1,10 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import ConnectButton from "./Buttons/ConnectButton";
 import { Role } from "../utils/types";
 import { useConnectionStatus } from "@thirdweb-dev/react";
 import { UserContext } from "../contexts/user_context";
+import { useRouter } from "next/router";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -21,6 +22,14 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const status = useConnectionStatus();
   const { user } = useContext(UserContext);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "disconnected") {
+      router.replace("/");
+    }
+  }, [status]);
 
   function renderNavs() {
     if (status === "connected" && user) {
