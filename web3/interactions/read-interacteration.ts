@@ -46,12 +46,12 @@ export async function getCandidatesCredentials(
   address: string,
   noOfCert: ethers.BigNumber
 ) {
-  const convertNum = formBigNumber(noOfCert);
   let credentialWithInstitution: Cred[] = [];
   const instance = createBlocFiReadInstance();
+  const credNum = await instance.credentialId();
   const _id = await instance.resolveId(address, 0);
   const userId = formBigNumber(_id);
-  for (let i = 1; i <= convertNum; i++) {
+  for (let i = 1; i <= credNum; i++) {
     const cred = await instance.candidates_credential(userId, i);
     if (cred.created) {
       const credentialNo = await instance.retrieveCredentialNo(i, cred.cid);
@@ -78,8 +78,9 @@ export async function getInstitutionCredentials(address: string) {
   let credentialWithInstitution: Cred[] = [];
   const instance = createBlocFiReadInstance();
   const _id = await instance.resolveId(address, 1);
+  const credNum = await instance.credentialId();
   const institutionId = formBigNumber(_id);
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= credNum; i++) {
     const cred = await instance.institution_credential(institutionId, i);
     if (cred.created) {
       const credentialNo = await instance.retrieveCredentialNo(i, cred.cid);
