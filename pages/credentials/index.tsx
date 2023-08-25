@@ -54,12 +54,11 @@ export default function CredentialsPages() {
   }
 
   async function _getUserCredential() {
+    if (!address || !user) {
+      return;
+    }
     const id = toast.loading("Getting Credential");
     try {
-      if (!address || !user) {
-        toast.dismiss(id);
-        return;
-      }
       const cred = await getCandidatesCredentials(
         address,
         user.no_of_credentials

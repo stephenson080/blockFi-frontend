@@ -78,9 +78,8 @@ export async function getInstitutionCredentials(address: string) {
   let credentialWithInstitution: Cred[] = [];
   const instance = createBlocFiReadInstance();
   const _id = await instance.resolveId(address, 1);
-  const noOfCred = await instance.institutionIds();
   const institutionId = formBigNumber(_id);
-  for (let i = 1; i <= noOfCred; i++) {
+  for (let i = 1; i <= 10; i++) {
     const cred = await instance.institution_credential(institutionId, i);
     if (cred.created) {
       const credentialNo = await instance.retrieveCredentialNo(i, cred.cid);

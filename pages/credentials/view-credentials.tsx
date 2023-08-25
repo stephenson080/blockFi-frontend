@@ -47,13 +47,11 @@ export default function CredentialsPages() {
   }
 
   async function _getInstitionCredential() {
+    if (!address || (user && !user.created)) {
+      return;
+    }
     const id = toast.loading("Getting Uploaded Credendtials");
     try {
-      if (!address || (user && !user.created)) {
-        toast.dismiss(id);
-        return;
-      }
-
       const cred = await getInstitutionCredentials(address);
       toast.dismiss(id);
       toast.success("Done");
